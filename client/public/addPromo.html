@@ -1,0 +1,570 @@
+<!--
+Name: Soh Hong Yu
+Class: DAAA/FT/1B/01
+Admin No.: P2100775
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="css/add.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SP IT!</title>
+    <link rel="shortcut icon" href="img/SPIT.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <link href="http://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/profile.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-white">
+      <div class="w-100 d-flex justify-content-center align-items-center">
+        <a
+          href="admin.html"
+          class="position-absolute text-dark text-uppercase text-decoration-none"
+          style="left: 5%"
+          id="return"
+          ><i class="fas fa-chevron-left"></i> Back to console</a
+        >
+        <a
+          class="navbar-brand d-flex align-items-center justify-content-between"
+          style="gap: 10px"
+          href="index.html"
+          ><img src="img/SPIT Dark.png" style="max-height: 60px" />SP IT!</a
+        >
+      </div>
+    </nav>
+    <div
+      class="d-flex w-100 justify-content-center align-items-center container flex-column mt-3"
+    >
+      <button
+        style="
+          border: none;
+          background: transparent;
+          aspect-ratio: 1;
+          width: 117px;
+        "
+        class="p-0 mb-4"
+        data-toggle="modal"
+        data-target="#imgUpload"
+      >
+        <img
+          id="promoPic"
+          src="http://localhost:8081/img/CNY.png"
+          style="
+            aspect-ratio: 1;
+            width: 112px;
+            border: 1px black solid;
+            object-fit: contain;
+          "
+        />
+      </button>
+      <div
+        class="modal fade"
+        id="imgUpload"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content" id="drop-area">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">promo image</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div
+              class="modal-body d-flex justify-content-center align-items-center p-0"
+            >
+              <div class="file-upload w-100">
+                <form
+                  class="image-upload-wrap d-flex justify-content-center align-items-center"
+                  style="height: 240px"
+                >
+                  <input
+                    class="file-upload-input"
+                    type="file"
+                    onchange="readURL(this);"
+                    accept="image/*"
+                    id="imageFile"
+                  />
+
+                  <div
+                    class="drag-text w-100 d-flex flex-column justify-content-center align-items-center"
+                  >
+                    <div id="imageErr" class="text-danger d-none">
+                      Invalid Image
+                    </div>
+                    <h3>Drag photo here</h3>
+                    <p>— or —</p>
+                    <button
+                      class="btn bg-secondary text-white font-weight-bold text-center"
+                      type="button"
+                      style="white-space: nowrap; z-index: 1055"
+                      id="addImage"
+                      onclick="$('.file-upload-input').trigger( 'click' )"
+                    >
+                      Choose photo to upload
+                    </button>
+                  </div>
+                </form>
+                <div class="file-upload-content">
+                  <img
+                    class="file-upload-image"
+                    style="border: 1px black solid"
+                    src="#"
+                    alt="your image"
+                    id="newImage"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                id="close"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary" id="save">
+                Save as promo picture
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="d-flex justify-content-center flex-column" id="promoInfo">
+        <div class="group" style="margin-bottom: 10px">
+          <input type="text" id="promoName" oninput="hide()" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Promo Name</label>
+        </div>
+        <div class="d-flex flex-column cate" style="margin-bottom: 10px">
+          <p style="font-size: 14px; color: #5264ae" class="mb-2">
+            &nbsp;Promo Description
+          </p>
+          <textarea
+            style="resize: none; height: 100px"
+            id="promoDescription"
+          ></textarea>
+        </div>
+
+        <div class="group">
+          <input type="date" id="startPromo" oninput="hide()" required />
+          <span class="bar"></span>
+          <label>Start Promotion Date</label>
+        </div>
+        <div class="group">
+          <input type="date" id="endPromo" oninput="hide()" required />
+          <span class="bar"></span>
+          <label>End Promotion Date</label>
+        </div>
+        <div class="group" style="margin-bottom: 10px">
+          <input
+            type="text"
+            id="discount"
+            oninput="hide()"
+            onkeydown="enter(event)"
+            required
+          />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Promo Discount (%)</label>
+        </div>
+        <div
+          id="err"
+          class="text-danger mb-2 invisible"
+          style="font-size: 12px"
+        >
+          Values cannot be empty
+        </div>
+        <div
+          class="d-flex justify-content-center align-items-center"
+          style="gap: 10px"
+          id="updatepromoButton"
+        >
+          <input
+            type="reset"
+            class="btn bg-secondary text-white font-weight-bold w-75 align-self-center mb-4"
+            id="cancel"
+            value="Cancel"
+          />
+          <button
+            type="button"
+            class="btn bg-secondary text-white font-weight-bold w-75 align-self-center mb-4"
+            id="editPromo"
+          >
+            Create promo
+          </button>
+        </div>
+      </form>
+      <div
+        class="modal fade"
+        id="success"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header border-0">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body border-0">
+              <h5 class="m-0 text-center">Promo Successfully Created!</h5>
+            </div>
+            <div class="modal-footer border-0">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                onclick="success()"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--JS Libraries-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+      integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+      crossorigin="anonymous"
+    ></script>
+    <!--AXIOS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--JQuery-->
+    <script>
+      const baseUrl = "http://localhost:8081";
+      $(document).ready(() => {
+                if (localStorage.getItem("userid") == null) {
+          window.location.href = "/";
+        } else {
+          axios
+            .get(`${baseUrl}/users/${localStorage.getItem("userid")}/`)
+            .then((response) => {
+              if (response.data.type != "Admin") {
+                window.location.href = "/";
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        var w = window.innerWidth;
+        if (w < 576) {
+          $("#return").html(`<i class="fas fa-chevron-left"></i> CONSOLE`);
+        } else {
+          $("#return").html(
+            `<i class="fas fa-chevron-left"></i> BACK TO CONSOLE`
+          );
+        }
+      });
+      $(document).ready(async () => {
+        await axios
+          .get(`${baseUrl}/products`)
+          .then(async (response) => {
+            console.log(response.data);
+            var productAppendString = "";
+            for await (var product of response.data) {
+              productAppendString += `
+                                    <option value="${product.id}">${product.name}</option>
+                                    `;
+            }
+            $("#startPromo").parent()
+              .before(`<div class="d-flex flex-column cate" style="margin-bottom: 30px">
+                            <p style="font-size: 14px;color: #5264ae;" class="mb-2">&nbsp;Promo Product</p>
+                            <select class="form-control" id="promoSelect">
+                              <option value="" disabled selected>Select a Product</option>
+                              ${productAppendString}
+                            </select>`);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        if ($("#save").hasClass("btn-primary")) {
+          $("#save").toggleClass("btn-primary");
+          $("#save").addClass("btn-danger");
+          $("#save").html("Set as default picture");
+        }
+      });
+      // Images
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $(".image-upload-wrap").addClass("d-none");
+            $(".image-upload-wrap").removeClass("d-flex");
+            $("#addImage").hide();
+            $(".file-upload-image").attr("src", e.target.result);
+            $(".file-upload-content").addClass(
+              "d-flex justify-content-center align-items-center"
+            );
+            $(".file-upload-content").removeClass("d-none");
+            if ($("#save").hasClass("btn-danger")) {
+              $("#save").toggleClass("btn-danger");
+              $("#save").addClass("btn-primary");
+              $("#save").html("Save as promo picture");
+            }
+          };
+          reader.readAsDataURL(input.files[0]);
+        } else {
+          removeUpload();
+        }
+      }
+      function removeUpload() {
+        $("#addImage").show();
+        $(".file-upload-input").replaceWith($(".file-upload-input").clone());
+        $(".file-upload-content").addClass("d-none");
+        $(".file-upload-content").removeClass("d-flex");
+        $(".image-upload-wrap").addClass("d-flex");
+        $(".image-upload-wrap").removeClass("d-none");
+        $(".image-upload-wrap").removeClass("image-dropping");
+        if ($("#save").hasClass("btn-primary")) {
+          $("#save").toggleClass("btn-primary");
+          $("#save").addClass("btn-danger");
+          $("#save").html("Set as default picture");
+        }
+      }
+      $(".image-upload-wrap").bind("dragover", function () {
+        $(".image-upload-wrap").addClass("image-dropping");
+      });
+      $(".image-upload-wrap").bind("dragleave", function () {
+        $(".image-upload-wrap").removeClass("image-dropping");
+      });
+      $("#close").click(() => {
+        $(".file-upload-input").val("");
+        removeUpload();
+      });
+      $("#save").click(async () => {
+        if ($("#save").hasClass("btn-primary")) {
+          if ($("#imageFile")[0].files && $("#imageFile")[0].files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              $("#promoPic").attr("src", e.target.result);
+            };
+            reader.readAsDataURL($("#imageFile")[0].files[0]);
+            $("#imgUpload").modal("toggle");
+            removeUpload();
+          }
+        } else {
+          $("#promoPic").attr("src", "http://localhost:8081/img/CNY.png");
+          $("#imgUpload").modal("toggle");
+          removeUpload();
+          $(".file-upload-input").val("");
+        }
+      });
+      var hide = () => {
+        if (!$("#err").hasClass("invisible")) {
+          $("#err").toggleClass("invisible");
+        }
+      };
+      $("#cancel").click(() => {
+        hide();
+        $("#promoPic").attr("src", "http://localhost:8081/img/CNY.png");
+        $(".file-upload-input").val("");
+      });
+      var success = () => {
+        window.location.reload();
+      };
+      $("#editPromo").click(async () => {
+        addPromo();
+      });
+      var addPromo = () => {
+        if (
+          $("#promoName").val().trim().length > 0 &&
+          $("#promoDescription").val().trim().length > 0 &&
+          $("#startPromo").val().trim().length > 0 &&
+          $("#endPromo").val().trim().length > 0 &&
+          $("#discount").val().trim().length > 0
+        ) {
+          if (
+            new Date($("#startPromo").val()) >
+            new Date($("#endPromo").val() + " 23:59:59")
+          ) {
+            if ($("#err").hasClass("invisible")) {
+              $("#err").toggleClass("invisible");
+              $("#err").html(`Start date must be earlier than end date`);
+            }
+            return;
+          }
+          if (new Date() > new Date($("#endPromo").val() + " 23:59:59")) {
+            if ($("#err").hasClass("invisible")) {
+              $("#err").toggleClass("invisible");
+              $("#err").html(
+                `Cannot create promotion due to promotion period ended`
+              );
+            }
+            return;
+          }
+          if ($.isNumeric($("#discount").val())) {
+            if ($("#discount").val().includes(".")) {
+              if (
+                $("#discount").val() > 1 ||
+                $("#discount").val() < 0 ||
+                ($("#discount").val() * 100) % 1 != 0 ||
+                !$.isNumeric($("#discount").val())
+              ) {
+                if ($("#err").hasClass("invisible")) {
+                  $("#err").toggleClass("invisible");
+                  $("#err").html(`Discount is out of range`);
+                }
+                return;
+              } else {
+                $("#discount").val(`${$("#discount").val() * 100}`);
+              }
+            } else {
+              if (
+                $("#discount").val() > 100 ||
+                $("#discount").val() < 0 ||
+                $("#discount").val() % 1 != 0 ||
+                !$.isNumeric($("#discount").val())
+              ) {
+                if ($("#err").hasClass("invisible")) {
+                  $("#err").toggleClass("invisible");
+                  $("#err").html(`Discount is out of range`);
+                }
+                return;
+              }
+            }
+          } else if ($("#discount").val().endsWith("%")) {
+            $("#discount").val(`${$("#discount").val().slice(0, -1)}`);
+            if (
+              $("#discount").val() > 100 ||
+              $("#discount").val() < 0 ||
+              $("#discount").val() % 1 != 0 ||
+              !$.isNumeric($("#discount").val())
+            ) {
+              if ($("#err").hasClass("invisible")) {
+                $("#err").toggleClass("invisible");
+                $("#err").html(`Discount is out of range`);
+              }
+              return;
+            }
+          } else {
+            if ($("#err").hasClass("invisible")) {
+              $("#err").toggleClass("invisible");
+              $("#err").html(`Invalid Discount`);
+            }
+            return;
+          }
+          var formData = new FormData();
+          formData.append("promoName", $("#promoName").val().trim());
+          formData.append(
+            "promoDescription",
+            $("#promoDescription").val().trim()
+          );
+          formData.append("startPromo", $("#startPromo").val());
+          formData.append("endPromo", $("#endPromo").val());
+          formData.append("discount", $("#discount").val() / 100);
+          axios
+            .post(
+              `${baseUrl}/product/${$("#promoSelect").val()}/promo`,
+              formData,
+              {
+                headers: {
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+              }
+            )
+            .then((response) => {
+              console.log(response.data);
+              $("#success").modal("show");
+            })
+            .catch((err) => {
+              console.log(err);
+              if ($("#err").hasClass("invisible")) {
+                $("#err").toggleClass("invisible");
+                $("#err").html(`Duplicated promo name`);
+              }
+            });
+        } else {
+          if ($("#err").hasClass("invisible")) {
+            $("#err").toggleClass("invisible");
+            $("#err").html(`Values cannot be empty`);
+          }
+        }
+      };
+      var enter = (event) => {
+        var keyCode = event.keyCode ? event.keyCode : event.which;
+        if (keyCode == 13) {
+          return addPromo();
+        }
+        return null;
+      };
+    </script>
+    <style>
+      .file-upload-image {
+        border-radius: 0;
+        aspect-ratio: 1;
+        width: 112px;
+      }
+      #newImage {
+        object-fit: contain;
+      }
+    </style>
+    <script>
+      // Detect if user tamper with log in user id
+      const userid = localStorage.getItem("userid");
+      const token = localStorage.getItem("token");
+      window.addEventListener(
+        "storage",
+        function () {
+          const newUserId = localStorage.getItem("userid");
+          const newToken = localStorage.getItem("token");
+          if (newUserId != userid) {
+            localStorage.setItem("userid", userid);
+            window.location.reload();
+          }
+          if (newToken != token) {
+            localStorage.setItem("token", token);
+            window.location.reload();
+          }
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

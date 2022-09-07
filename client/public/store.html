@@ -1,0 +1,662 @@
+<!--
+Name: Soh Hong Yu
+Class: DAAA/FT/1B/01
+Admin No.: P2100775
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SP IT!</title>
+    <link rel="shortcut icon" href="img/SPIT.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <link href="http://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/product.css" />
+  </head>
+
+  <body>
+    <!------------------------------------------------------Header---------------------------------------------------->
+    <nav class="navbar navbar-expand-md navbar-light bg-white">
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center justify-content-between"
+          style="gap: 10px"
+          href="index.html"
+          ><img src="img/SPIT Dark.png" style="max-height: 60px" />SP IT!</a
+        >
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="store.html"
+                >Store <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="promotion.html">Promotions</a>
+            </li>
+          </ul>
+          <div
+            class="d-flex justify-content-between align-items-center"
+            style="gap: 10px"
+          >
+            <button class="p-2 border-0 bg-transparent" id="search">
+              <i class="fas fa-search" style="color: black"></i></button
+            ><button id="cart" class="p-2 border-0 bg-transparent">
+              <i
+                class="fas fa-shopping-cart"
+                id="cart"
+                style="color: black"
+              ></i>
+            </button>
+            <button id="profile" class="p-2 border-0 bg-transparent">
+              <i class="fas fa-user" style="color: black"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div id="main" class="container mt-4">
+      <div class="row">
+        <div
+          id="categoryFilter"
+          class="col-12 col-md-3 col-lg-2 d-flex flex-column"
+          style="gap: 10px"
+        >
+          <div
+            id="AllCategory"
+            class="d-flex flex-column"
+            style="gap: 10px"
+          ></div>
+          <form
+            class="d-flex flex-column mt-2"
+            id="searchFilter"
+            style="
+              gap: 10px;
+              overflow: hidden;
+              max-height: 24px;
+              cursor: pointer;
+            "
+          >
+            <div
+              class="d-flex align-items-center justify-content-start"
+              style="gap: 10px"
+              onclick="showSearchFilter()"
+            >
+              <i class="fas fa-filter"></i>
+              <h5 class="m-0">Filter</h5>
+              <i class="fas fa-caret-down" id="toggleDown"></i>
+            </div>
+            <div id="brand">
+              <h6>Brand</h6>
+              <div id="brandFilter" class="d-flex flex-column"></div>
+            </div>
+            <div
+              id="gotPromo"
+              class="d-flex align-items-center"
+              style="gap: 10px"
+            >
+              <h6 class="m-0">Promotion</h6>
+              <input type="checkbox" id="switch" /><label
+                class="m-0"
+                for="switch"
+                >Toggle</label
+              >
+            </div>
+            <div class="row justify-content-around" style="gap: 10px">
+              <button
+                type="reset"
+                class="order-0 order-lg-1 col-4 col-lg-12 btn btn-secondary"
+                onclick="window.location.reload()"
+              >
+                Clear All
+              </button>
+              <button
+                type="button"
+                id="applyFilter"
+                class="col-4 col-lg-12 btn btn-primary order-1 order-lg-0"
+              >
+                Apply Filter
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-12 col-md-9 col-lg-10">
+          <div class="container">
+            <div
+              class="row justify-content-center justify-content-lg-start mx-0 w-100"
+              id="products"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal-->
+    <div
+      class="modal fade"
+      id="searchModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              What are you looking for?
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div
+              class="d-flex align-items-center w-100 justify-content-center my-2"
+            >
+              <div class="group">
+                <input
+                  type="text"
+                  id="searchValue"
+                  oninput="onChange()"
+                  required
+                />
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>What are you looking for?</label>
+              </div>
+              <div class="d-flex flex-column">
+                <select id="searchSelector" onchange="onChange()">
+                  <option>Name</option>
+                  <option>Brand</option>
+                </select>
+                <button class="p-2 border-0 bg-transparent" id="searchIcon">
+                  <i class="fas fa-search" style="color: black"></i>
+                </button>
+              </div>
+            </div>
+            <div id="searchResult" class="my-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="container my-4">
+      &copy; 2022 SP IT!. All Rights Reserved.
+    </footer>
+    <!--JS Libraries-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+      integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+      crossorigin="anonymous"
+    ></script>
+    <!--AXIOS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--JQuery-->
+    <script>
+      const baseUrl = "http://localhost:8081";
+      var getProducts = async () => {
+        await axios
+          .get(`${baseUrl}/products`)
+          .then(async (response) => {
+            console.log(response.data);
+            var filter = String(localStorage.getItem("filterCategory")).split(
+              ","
+            );
+            var brandArr = [];
+            localStorage.removeItem("filterCategory");
+            filter.forEach((element) => {
+              if ($.isNumeric(element)) {
+                $(`#categoryID${element}`).addClass("active");
+              }
+            });
+            await response.data.forEach(async (product) => {
+              brandArr.push(product.brand);
+              document.getElementById("products").innerHTML += `
+                  <div class="col-12 col-md-4 col-lg-3 p-2">
+                    <button
+                      onclick="goProduct(${product.id})"
+                      class="card p-0 text-dark text-decoration-none text-left"
+                      id="product${product.id}"
+                    >
+                      <div class="position-relative">
+                        <img
+                          src="${baseUrl}${product.product_pic_url.substring(
+                1
+              )}"
+                          class="card-img-top img-fluid p-2"
+                          style="width:100%;height:100%;object-fit:contain;aspect-ratio: 1;border-bottom: 2px solid rgba(0,0,0,0.2)"
+                        />
+                        <div
+                          class="position-absolute invisible sales d-flex flex-column align-items-center"
+                        >
+                          <span class="percent" style="font-size: 1rem">19%</span>
+                          <span style="font-size: 0.8rem">OFF</span>
+                        </div>
+                      </div>
+                      <div class="card-body w-100 px-3 py-2">
+                        <h5 class="card-title productName m-0 text-truncate" style="width:172.5px;height:24px">${
+                          product.name
+                        }</h5>
+                        <h6 class="card-title brandName m-0" style="font-size: 0.9rem">${
+                          product.brand
+                        }</h6>
+                        <p class="card-title categoryName m-0">${
+                          product.category
+                        }</p>
+                        <p class="card-text productPrice m-0">$${product.price.toFixed(
+                          2
+                        )}</p>
+                        <div class="starRating" style="height: max-content">
+                          <div class="star-outline">☆☆☆☆☆</div>
+                          <div class="star-filled">★★★★★</div>
+                        </div>
+                      </div>
+                    </button>
+                  </div>`;
+              await axios
+                .get(`${baseUrl}/product/${product.id}/reviews`)
+                .then(async (response, index) => {
+                  if (response.data.length > 0) {
+                    var totalRating = 0;
+                    await response.data.forEach((element) => {
+                      totalRating += element.rating;
+                    });
+                    avgRating = totalRating / response.data.length;
+                  } else {
+                    avgRating = 0;
+                  }
+                  $(`#product${product.id} .star-outline`).attr(
+                    "style",
+                    `font-size: ${$(".starRating").width() * 0.24}px`
+                  );
+                  $(`#product${product.id} .starRating`).height(
+                    $(".star-outline").height()
+                  );
+                  $(`#product${product.id} .star-filled`).attr(
+                    "style",
+                    `font-size: ${$(".starRating").width() * 0.24}px;
+                            width: ${(avgRating / 5) * 100}%;`
+                  );
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+              await axios
+                .get(`${baseUrl}/product/${product.id}/promo`)
+                .then(async (response) => {
+                  if (response.data.length > 0) {
+                    var today = new Date();
+                    await response.data.forEach((promo) => {
+                      var startPromoDate = new Date(promo.startPromo);
+                      var endPromoDate = new Date(promo.endPromo + " 23:59:59");
+                      if (
+                        startPromoDate <= today &&
+                        today <= endPromoDate &&
+                        $(`#product${product.id} .sales`).hasClass("invisible")
+                      ) {
+                        $(`#product${product.id} .sales`).toggleClass(
+                          "invisible"
+                        );
+                        $(`#product${product.id} .sales .percent`).html(
+                          `${promo.discount * 100}%`
+                        );
+                        var currentPrice = parseFloat(
+                          $(`#product${product.id} .productPrice`)
+                            .html()
+                            .substring(1)
+                        );
+                        $(`#product${product.id} .productPrice`).html(
+                          `<small style="text-decoration: line-through; color:rgba(0,0,0,0.5)">$${currentPrice.toFixed(
+                            2
+                          )}</small>&nbsp;&nbsp;$${(
+                            currentPrice *
+                            (1 - promo.discount)
+                          ).toFixed(2)}`
+                        );
+                      }
+                    });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+              if (filter != "null") {
+                for await (var element of filter) {
+                  if ($.isNumeric(element)) {
+                    if (parseInt(element) != product.categoryid) {
+                      $(`#product${product.id}`).parent().remove();
+                      if (
+                        document.getElementById("products").children.length == 0
+                      ) {
+                        document.getElementById("products").innerHTML = `
+                        <div class="w-100 d-flex align-items-center" style="height:200px">
+                          <h4 class="w-100 text-center">
+                            No Products Found
+                          </h4>
+                        </div>
+                        `;
+                      }
+                    }
+                  }
+                  if (element == "promo") {
+                    console.log(product);
+                    if (
+                      $(`#product${product.id} .sales`).hasClass("invisible")
+                    ) {
+                      $(`#product${product.id}`).parent().remove();
+                    }
+                  }
+                  if (element.includes("brand")) {
+                    if (
+                      !filter.includes(
+                        `brand${$(`#product${product.id} .brandName`)
+                          .text()
+                          .replace(/[^a-z0-9]/gi, "")}`
+                      )
+                    ) {
+                      $(`#product${product.id}`).parent().remove();
+                    }
+                  }
+                }
+              }
+            });
+            brandArr = [...new Set(brandArr)];
+            for await (var brand of brandArr) {
+              document.getElementById(`brandFilter`).innerHTML += `
+                  <label class="checkbox-container">
+                    ${brand}
+                    <input type="checkbox" id="brand${brand.replace(
+                      /[^a-z0-9]/gi,
+                      ""
+                    )}" />
+                    <span class="checkmark"></span>
+                  </label>
+                `;
+            }
+            for await (var element of filter) {
+              if (!$.isNumeric(element) && element != "promo") {
+                $(`#${element}`).prop("checked", true);
+              } else if (element == "promo") {
+                $("#switch").prop("checked", true);
+              }
+            }
+            if (document.getElementById("products").children.length == 0) {
+              document.getElementById("products").innerHTML = `
+                <div class="w-100 d-flex align-items-center" style="height:200px">
+                  <h4 class="w-100 text-center">
+                    No Products Found
+                  </h4>
+                </div>
+                `;
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      $(document).ready(async () => {
+        $("#searchValue").val("");
+        $("#AllCategory").empty();
+        await axios
+          .get(`${baseUrl}/category`)
+          .then(async (response) => {
+            console.log(response.data);
+            $("#AllCategory").append(`
+                <div
+                class="d-flex align-items-center justify-content-start"
+                style="gap: 10px; cursor: pointer"
+                id="AllCate"
+                onclick="goCategory('All')"
+              >
+                <i class="fas fa-list-ul"></i>
+                <h5 class="m-0">All Categories</h5>
+              </div>
+                `);
+            for await (const categoryObj of response.data) {
+              console.log(categoryObj);
+              $("#AllCategory").append(`
+                <div style="cursor:pointer" id="categoryID${categoryObj.categoryid}"  onclick="goCategory(categoryID${categoryObj.categoryid})">
+                  <p class="m-0 filterCategory">${categoryObj.category}</p>
+                </div>
+                `);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        await getProducts();
+      });
+      var goProduct = (id) => {
+        localStorage.setItem("goingProduct", id);
+        console.log(id);
+        window.location.href = "/product.html";
+      };
+      $("#profile").click(() => {
+        localStorage.setItem("movingDir", "/store.html");
+        if (localStorage.getItem("token")) {
+          window.location.href = "/profile.html";
+        } else {
+          window.location.href = "/login.html";
+        }
+      });
+      $("#cart").click(() => {
+        localStorage.setItem("movingDir", "/store.html");
+        if (localStorage.getItem("token")) {
+          window.location.href = "/cart.html";
+        } else {
+          window.location.href = "/login.html";
+        }
+      });
+      $("#search").click(() => {
+        $("#searchModal").modal("show");
+      });
+      var onChange = () => {
+        searchFunction($("#searchValue").val());
+      };
+      var onChange = () => {
+        searchFunction($("#searchValue").val());
+      };
+      var searchFunction = (searchString) => {
+        $("#searchResult").empty();
+        axios
+          .get(
+            `${baseUrl}/search/${$("#searchSelector").val()}/${searchString}`
+          )
+          .then((response) => {
+            //console.log(response.data);
+            if (response.data.length > 0) {
+              response.data.forEach((result) => {
+                $("#searchResult").append(`
+              <div class="d-flex align-items-center my-2" style="border-bottom: 1px solid rgba(0, 0, 0, 0.25)" id="searchResult${
+                result.id
+              }">
+                <img src="${baseUrl}${result.product_pic_url.substring(
+                  1
+                )}" style="width:25%;aspect-ratio:1"/>
+                <div class="d-flex flex-column mx-1">
+                  <h5 class="m-0">${result.name
+                    .split(`(?i)${searchString}`)
+                    .join(" ")}</h5>
+                  <small>${result.brand}</small>
+                  <h6 class="productPrice m-0">$${result.price}</h6>
+                </div>
+                <div class="ml-auto d-flex flex-column">
+                  <div class="d-none justify-content-center align-items-center sale" style="gap:5px;font-size: 1rem">
+                    <span class="percent">19%</span>
+                    <span >OFF</span>
+                  </div>
+                  <button onclick="goProduct(${
+                    result.id
+                  })" class="btn btn-secondary text-uppercase" style="font-size: 10px">View Product</button>
+                </div>
+              </div>
+                `);
+                axios
+                  .get(`${baseUrl}/product/${result.id}/promo`)
+                  .then(async (promoResponse) => {
+                    if (promoResponse.data.length > 0) {
+                      var today = new Date();
+                      await promoResponse.data.forEach((promo) => {
+                        var startPromoDate = new Date(promo.startPromo);
+                        var endPromoDate = new Date(
+                          promo.endPromo + " 23:59:59"
+                        );
+                        if (startPromoDate <= today && today <= endPromoDate) {
+                          //console.log(result.id);
+                          if (
+                            $(`#searchResult${result.id} .sale`).hasClass(
+                              "d-none"
+                            )
+                          ) {
+                            $(`#searchResult${result.id} .sale`).toggleClass(
+                              "d-none"
+                            );
+                            $(`#searchResult${result.id} .sale`).addClass(
+                              "d-flex"
+                            );
+                            $(`#searchResult${result.id} .percent`).html(
+                              `${promo.discount * 100}%`
+                            );
+                          }
+                          $(`#searchResult${result.id} .productPrice`).html(
+                            `<small style="text-decoration: line-through; color:rgba(0,0,0,0.5)">$${result.price.toFixed(
+                              2
+                            )}</small>&nbsp;$${(
+                              result.price *
+                              (1 - promo.discount)
+                            ).toFixed(2)}`
+                          );
+                        }
+                      });
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              });
+            } else {
+              $("#searchResult").append(`
+              <div class="d-flex justify-content-center align-items-center" style="height:100px"><h6>No products in ${searchString}</h6></div>
+              `);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      $("#searchIcon").click(() => {
+        searchFunction($("#searchValue").val());
+      });
+      $("#searchModal").on("hidden.bs.modal", function () {
+        $("#searchValue").val("");
+        $("#searchResult").empty();
+      });
+      var goProduct = (productID) => {
+        localStorage.setItem("goingProduct", productID);
+        window.location.href = "/product.html";
+      };
+      var goCategory = (element) => {
+        console.log(element);
+        if (element == "All") {
+          localStorage.removeItem("filterCategory");
+        } else {
+          localStorage.setItem(
+            "filterCategory",
+            element.id.match(/\d/g).join("")
+          );
+        }
+        window.location.reload();
+      };
+      var showSearchFilter = () => {
+        if (document.getElementById("searchFilter").style.maxHeight == "100%") {
+          document.getElementById("searchFilter").style.maxHeight = "24px";
+          document.getElementById("toggleDown").style.transform = `rotate(0)`;
+        } else {
+          document.getElementById("searchFilter").style.maxHeight = "100%";
+          document.getElementById(
+            "toggleDown"
+          ).style.transform = `rotate(-180deg)`;
+        }
+      };
+      $("#applyFilter").click(() => {
+        var filterItem = [];
+        for (var i = 0; i < $("#brand input").length; i++) {
+          if ($("#brand input").eq(i).prop("checked")) {
+            filterItem.push($("#brand input").eq(i)[0].id);
+          }
+        }
+        if ($("#switch").prop("checked")) {
+          filterItem.push("promo");
+        }
+        console.log(filterItem);
+        if (filterItem.length > 0) {
+          localStorage.setItem("filterCategory", filterItem);
+        }
+        window.location.reload();
+      });
+    </script>
+    <script>
+      // Detect if user tamper with log in user id
+      const userid = localStorage.getItem("userid");
+      const token = localStorage.getItem("token");
+      window.addEventListener(
+        "storage",
+        function () {
+          const newUserId = localStorage.getItem("userid");
+          const newToken = localStorage.getItem("token");
+          if (newUserId != userid) {
+            localStorage.setItem("userid", userid);
+            window.location.reload();
+          }
+          if (newToken != token) {
+            localStorage.setItem("token", token);
+            window.location.reload();
+          }
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

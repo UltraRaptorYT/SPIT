@@ -1,0 +1,192 @@
+/*
+Name: Soh Hong Yu
+Class: DAAA/FT/1B/01
+Admin No.: P2100775
+*/
+
+* {
+  font-family: "Futura PT", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji",
+    sans-serif;
+}
+
+.productPrice {
+  color: #ee4d2d;
+}
+
+.group {
+  position: relative;
+  width: 100%;
+}
+
+.group input:not(input[type="checkbox"]):not(input[type="radio"]) {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #757575;
+}
+
+.group input:not(input[type="checkbox"]):not(input[type="radio"]):focus {
+  outline: none;
+  border-bottom: 0 !important;
+}
+
+/* LABEL ======================================= */
+.group label:not(label[class="checkbox-container"]):not(label[class="radio"]) {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+.group input:not(input[type="checkbox"]):not(input[type="radio"]):focus ~ label,
+.group
+  input:not(input[type="checkbox"]):not(input[type="radio"]):valid
+  ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: #5264ae;
+}
+
+/* BOTTOM BARS ================================= */
+.group .bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+.group .bar:before,
+.group .bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #5264ae;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.group .bar:before {
+  left: 50%;
+}
+.group .bar:after {
+  right: 50%;
+}
+
+/* active state */
+.group
+  input:not(input[type="checkbox"]):not(input[type="radio"]):focus
+  ~ .bar:before,
+.group
+  input:not(input[type="checkbox"]):not(input[type="radio"]):focus
+  ~ .bar:after {
+  width: 50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.group .highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* active state */
+.group
+  input:not(input[type="checkbox"]):not(input[type="radio"]):focus
+  ~ .highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  -moz-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+@-moz-keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+@keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+.sales {
+  background-color: rgba(255, 212, 36, 0.9);
+  aspect-ratio: 1;
+  width: 42px;
+  top: 0;
+  right: 0;
+}
+
+.sales::after {
+  content: "";
+  width: 0;
+  height: 0;
+  left: 0;
+  bottom: -4px;
+  position: absolute;
+  border-color: transparent rgba(255, 212, 36, 0.9);
+  border-style: solid;
+  border-width: 0 21px 4px;
+}
+.percent {
+  color: #ee4d2d;
+  font-weight: 500;
+}
+
+.filterCategory {
+  cursor: pointer;
+  position: relative;
+  width: fit-content;
+}
+
+.filterCategory::before {
+  content: "";
+  display: block;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  transform: scale(0, 1);
+  transform-origin: left;
+  transition: transform ease-in-out 300ms;
+}
+
+.filterCategory:hover:before,
+.active .filterCategory:before {
+  transform: scale(1, 1);
+}

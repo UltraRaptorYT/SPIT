@@ -1,0 +1,190 @@
+<!--
+Name: Soh Hong Yu
+Class: DAAA/FT/1B/01
+Admin No.: P2100775
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SP IT!</title>
+    <link rel="shortcut icon" href="img/SPIT.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <link href="http://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+
+  <body>
+    <!------------------------------------------------------Header---------------------------------------------------->
+    <nav class="navbar navbar-expand-md navbar-light bg-white">
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center justify-content-between"
+          style="gap: 10px"
+          href="index.html"
+          ><img src="img/SPIT Dark.png" style="max-height: 60px" />SP IT!</a
+        >
+      </div>
+    </nav>
+    <div
+      class="d-flex w-100 justify-content-center align-items-center container flex-column"
+      style="height: 80vh"
+    >
+      <h2 class="text-center mb-4">Reset password</h2>
+      <form class="d-flex flex-column justify-content-center">
+        <div class="group">
+          <input type="text" id="username" oninput="hide()" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Username</label>
+        </div>
+        <div class="group" style="margin-bottom: 20px">
+          <input
+            type="text"
+            id="email"
+            oninput="hide()"
+            onkeydown="enter(event)"
+            required
+          />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Email</label>
+        </div>
+        <div
+          id="err"
+          class="text-danger mb-2 invisible"
+          style="font-size: 12px"
+        >
+          Invalid username or email
+        </div>
+        <button
+          type="button"
+          class="btn bg-secondary text-white font-weight-bold w-75 align-self-center mb-4"
+          id="reset"
+        >
+          Reset password
+        </button>
+      </form>
+    </div>
+        <footer class="container my-4">
+      &copy; 2022 SP IT!. All Rights Reserved.
+    </footer>
+    <!--JS Libraries-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+      integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+      crossorigin="anonymous"
+    ></script>
+    <!--AXIOS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--JQuery-->
+    <script>
+      const baseUrl = "http://localhost:8081";
+      var hide = () => {
+        if (!$("#err").hasClass("invisible")) {
+          $("#err").toggleClass("invisible");
+        }
+      };
+      var resetPWD = async () => {
+        if (!$("#username").val()) {
+          $("#err").html(`Invalid username`);
+          if ($("#err").hasClass("invisible")) {
+            $("#err").toggleClass("invisible");
+          }
+        } else if (!$("#email").val()) {
+          $("#err").html(`Invalid email`);
+          if ($("#err").hasClass("invisible")) {
+            $("#err").toggleClass("invisible");
+          }
+        } else {
+          var userid = await axios
+            .get(`${baseUrl}/users/`)
+            .then((response) => {
+              var resultArr = response.data.filter((element, index) => {
+                return (
+                  element.email == $("#email").val() &&
+                  element.username == $("#username").val()
+                );
+              });
+              if (resultArr.length) {
+                return resultArr[0].userid;
+              } else {
+                $("#err").html(`Invalid username or email`);
+                if ($("#err").hasClass("invisible")) {
+                  $("#err").toggleClass("invisible");
+                }
+                return;
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              return err;
+            });
+          if (userid) {
+            localStorage.setItem("email", $("#email").val());
+            localStorage.setItem("userid", userid);
+            window.location.href = "/resetpwd.html";
+            return;
+          }
+        }
+      };
+      var enter = (event) => {
+        var keyCode = event.keyCode ? event.keyCode : event.which;
+        if (keyCode == 13) {
+          return resetPWD();
+        }
+        return null;
+      };
+      $("#reset").click(() => {
+        return resetPWD();
+      });
+    </script>
+    <script>
+      // Detect if user tamper with log in user id
+      const userid = localStorage.getItem("userid");
+      const token = localStorage.getItem("token");
+      window.addEventListener(
+        "storage",
+        function () {
+          const newUserId = localStorage.getItem("userid");
+          const newToken = localStorage.getItem("token");
+          if (newUserId != userid) {
+            localStorage.setItem("userid", userid);
+            window.location.reload();
+          }
+          if (newToken != token) {
+            localStorage.setItem("token", token);
+            window.location.reload();
+          }
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

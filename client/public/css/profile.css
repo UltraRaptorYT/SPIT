@@ -1,0 +1,222 @@
+/*
+Name: Soh Hong Yu
+Class: DAAA/FT/1B/01
+Admin No.: P2100775
+*/
+
+/* Customize the label (the container) */
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  font-size: 17px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.heart {
+  position: absolute;
+  font-size: 25px;
+  top: 0;
+  left: 0;
+  z-index: 1052;
+}
+
+.fas.heart {
+  display: none;
+  z-index: 1051;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .fas.heart {
+  color: #ff2b59c0;
+  display: block;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .fas.heart {
+  color: #fc1849;
+  display: block;
+}
+
+.group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+input:not(input[type="checkbox"]):not(input[type="radio"]):not(input[type="reset"]):not(input[type="file"]) {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 300px;
+  border: none;
+  outline: none;
+}
+
+/* LABEL ======================================= */
+label:not(label[class="checkbox-container"]):not(label[class="radio"]) {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+input:not(input[type="checkbox"]):not(input[type="radio"]):not(input[type="reset"]):not(input[type="file"])
+  ~ label,
+input:not(input[type="checkbox"]):not(input[type="radio"]):not(input[type="reset"]):not(input[type="file"]):valid
+  ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: #5264ae;
+}
+
+/* BOTTOM BARS ================================= */
+.bar {
+  position: relative;
+  display: block;
+  width: 300px;
+}
+.bar:before,
+.bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #5264ae;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.bar:before {
+  left: 50%;
+}
+.bar:after {
+  right: 50%;
+}
+
+/* active state */
+input:not(input[type="checkbox"]):not(input[type="radio"]):not(input[type="reset"]):not(input[type="file"])
+  ~ .bar:before,
+input:not(input[type="checkbox"]):not(input[type="radio"]):not(input[type="reset"]):not(input[type="file"])
+  ~ .bar:after {
+  width: 50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* active state */
+input:not(input[type="checkbox"]):not(input[type="radio"]):not(input[type="reset"]):not(input:read-only):not(input[type="file"]):focus
+  ~ .highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  -moz-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+@-moz-keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+@keyframes inputHighlighter {
+  from {
+    background: #5264ae;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+#option a {
+  color: #999;
+}
+
+/* hi */
+
+.file-upload,
+.image-upload-wrap {
+  box-sizing: border-box;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+  height: 240px;
+  flex-direction: column;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.image-dropping {
+  border: 2px solid #007bff;
+  box-sizing: border-box;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.file-upload-image {
+  border-radius: 100%;
+  aspect-ratio: 1;
+  width: 112px;
+}

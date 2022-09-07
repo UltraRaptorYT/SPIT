@@ -1,0 +1,655 @@
+<!--
+Name: Soh Hong Yu
+Class: DAAA/FT/1B/01
+Admin No.: P2100775
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SP IT!</title>
+    <link rel="shortcut icon" href="img/SPIT.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <link href="http://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+
+  <body>
+    <!------------------------------------------------------Header---------------------------------------------------->
+    <nav class="navbar navbar-expand-md navbar-light bg-white">
+      <div class="w-100 d-flex justify-content-center align-items-center">
+        <a
+          href="store.html"
+          class="position-absolute text-dark text-uppercase text-decoration-none"
+          style="left: 5%"
+          id="return"
+          ><i class="fas fa-chevron-left"></i> Back to shop</a
+        >
+        <a
+          class="navbar-brand d-flex align-items-center justify-content-between"
+          style="gap: 10px"
+          href="index.html"
+          ><img src="img/SPIT Dark.png" style="max-height: 60px" />SP IT!</a
+        >
+      </div>
+    </nav>
+    <div class="container mt-lg-4 mt-0">
+      <div class="row">
+        <div class="col-12 col-lg-9" id="cartItems"></div>
+        <div
+          class="col-12 col-lg-3 d-flex justify-content-center flex-column sticky-top align-self-start"
+        >
+          <div
+            class="d-flex justify-content-between align-items-center"
+            style="gap: 10px"
+          >
+            <i class="fas fa-truck"></i>
+            <p class="m-0">Free standard shipping Singapore wide</p>
+          </div>
+          <h6 class="mt-4">Pay with:</h6>
+          <ul class="payWith">
+            <li>&nbsp;&nbsp;Credit / Debit Card</li>
+            <li>&nbsp;&nbsp;PayNow</li>
+            <li>&nbsp;&nbsp;PayLah!</li>
+          </ul>
+          <div class="d-flex justify-content-between align-items-center h3">
+            <h3>Total</h3>
+            <h3 id="price">$0.00</h3>
+          </div>
+          <hr style="border-top: 2px solid black" class="w-100 mt-0" />
+          <div class="d-flex justify-content-between align-items-center h3">
+            <h6>Total savings</h6>
+            <h6 id="saving">$0.00</h6>
+          </div>
+          <button
+            type="button"
+            class="btn bg-secondary text-white font-weight-bold w-75 align-self-center mb-4"
+            id="checkOutButton"
+            data-toggle="modal"
+            data-target="#staticBackdrop"
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">
+              Checkout Information
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form>
+            <div class="modal-body">
+              <div class="group mt-3" style="margin-bottom: 30px">
+                <input type="text" id="address" oninput="hide()" required />
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Address</label>
+              </div>
+              <div class="group" style="margin-bottom: 10px">
+                <input type="text" id="creditNum" oninput="hide()" required />
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Credit Card Number</label>
+              </div>
+              <div
+                id="err"
+                class="text-danger mb-2 invisible"
+                style="font-size: 12px"
+              >
+                Values cannot be empty
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="reset"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button type="button" class="btn btn-primary" id="checkOut">
+                Place Order
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="container my-4">
+      &copy; 2022 SP IT!. All Rights Reserved.
+    </footer>
+    <!--JS Libraries-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+      integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+      crossorigin="anonymous"
+    ></script>
+    <!--AXIOS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      const baseUrl = "http://localhost:8081";
+      var confirmDeleteItem = async (cartItem) => {
+        console.log(cartItem.id);
+        var cartId = cartItem.id.match(/\d/g).join("");
+        console.log(localStorage.getItem("token"));
+        await axios
+          .delete(`${baseUrl}/cart/${cartId}`, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            data: {
+              userid: localStorage.getItem("userid"),
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+            console.log($("#cartItems").children());
+            $(`#cartItem${cartId}`).remove();
+            if ($("#cartItems").children().length <= 0) {
+              $("#cartItems").append(`
+                            <div class="d-flex justify-content-center align-items-center w-100 mb-3" style="height: 35vh; border-bottom: 1px solid rgba(0, 0, 0, 0.25)">
+                              <a href="/store.html" class="d-flex flex-column h2 text-dark text-decoration-none" style="gap:10px">Nothing in cart! Please buy something!
+                                <button class="btn btn-secondary w-50 mx-auto">Click here to visit store</button>
+                              </a>
+                            </div>
+                            `);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        window.location.reload();
+      };
+      var deleteItem = (cartItemID) => {
+        console.log(cartItemID);
+        var cartId = cartItemID.id.match(/\d/g).join("");
+        console.log(cartId);
+        $("#cartItems").append(`<div
+                              class="modal fade"
+                              id="confirmDelete"
+                              tabindex="-1"
+                              aria-labelledby="exampleModalLabel"
+                              aria-hidden="true"
+                            >
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">
+                                      Are you sure?
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      class="close"
+                                      data-dismiss="modal"
+                                      aria-label="Close"
+                                    >
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">Are you sure you want to remove <strong>${$(
+                                    `#cartItem${cartId} .productName`
+                                  ).text()}</strong> from cart?</div>
+                                  <div class="modal-footer">
+                                    <button
+                                      type="button"
+                                      class="btn btn-secondary"
+                                      data-dismiss="modal"
+                                    >
+                                      No
+                                    </button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-primary" onclick="confirmDeleteItem(${
+                                      cartItemID.id
+                                    })"">
+                                      Yes
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>`);
+        $("#confirmDelete").modal("show");
+      };
+      var getCartItems = async () => {
+        await axios
+          .get(`${baseUrl}/cart/${localStorage.getItem("userid")}`, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then(async (response) => {
+            $("#cartItems").empty();
+            if (response.data.length > 0) {
+              var totalPrice = 0;
+              var totalSaving = 0;
+              await response.data.forEach(async (element) => {
+                await axios
+                  .get(`${baseUrl}/product/${element.productid}`)
+                  .then((response1) => {
+                    $("#cartItems").append(`
+                                      <div class="container mb-4" title="product${
+                                        element.productid
+                                      }" id="cartItem${element.id}">
+                                      <div
+                                        class="row justify-content-between align-items-center"
+                                        style="border-bottom: 1px solid rgba(0, 0, 0, 0.25)"
+                                      >
+                                        <div class="position-relative order-2 col-4 col-md-2 order-lg-0">
+                                          <img src="${baseUrl}${response1.data.product_pic_url.substring(
+                      1
+                    )}" class="productImg img-fluid" style="aspect-ratio:1;object-fit:contain" />
+                                        </div>
+                                        <div class="order-1 position-relative align-self-start text-left px-0 col-8 col-md-10 order-lg-1 col-lg-7">
+                                          <h5
+                                            class="productName m-0"
+                                          >
+                                            ${element.name}
+                                          </h5>
+                                          <small class="productInfo text-truncate" style="width:20vw">${
+                                            response1.data.description
+                                          }</small>
+                                          <div
+                                            class="position-absolute invisible sales d-md-flex d-none flex-column align-items-center"
+                                          >
+                                            <span class="percent" style="font-size: 1rem">19%</span>
+                                            <span style="font-size: 0.8rem">OFF</span>
+                                          </div>
+                                        </div>
+                                        <div class=" order-4 p-3 m-0 col-5 col-lg-3 order-lg-2 py-lg-0 d-flex justify-content-end align-items-center">
+                                          <h5
+                                            class="productPrice text-right"
+                                          >
+                                            $${response1.data.price}
+                                          </h5>
+                                          <small class="multiplyQuantity">&times;${
+                                            element.quantity
+                                          }</small>
+                                        </div>
+                                        <div
+                                          class="quantity order-3 py-3 col-7 px-0 col-lg-5 order-lg-3 ml-auto"
+                                        >
+                                          <span class="input-number-decrement" onclick="subFrom(quantityInput${
+                                            element.id
+                                          })">–</span
+                                          ><input
+                                            id="quantityInput${element.id}"
+                                            class="input-number"
+                                            type="text"
+                                            value="${element.quantity}"
+                                            oninput="changeQuantity(quantityInput${
+                                              element.id
+                                            })"
+                                            min="0"
+                                            max="100"
+                                          /><span class="input-number-increment" onclick="addTo(quantityInput${
+                                            element.id
+                                          })">+</span>
+                                        </div>
+                                        <button
+                                          class="border-0 bg-transparent delete col-12 text-right order-0 py-3 col-lg-5 order-lg-4"
+                                          onclick="deleteItem(cartItem${
+                                            element.id
+                                          })"
+                                        >
+                                          <i class="fas fa-trash"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                    `);
+                    totalPrice += response1.data.price * element.quantity;
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+                await axios
+                  .get(`${baseUrl}/product/${element.productid}/promo`)
+                  .then(async (promoResponse) => {
+                    if (promoResponse.data.length > 0) {
+                      var today = new Date();
+                      await promoResponse.data.forEach((promo) => {
+                        var startPromoDate = new Date(promo.startPromo);
+                        var endPromoDate = new Date(
+                          promo.endPromo + " 23:59:59"
+                        );
+                        if (startPromoDate <= today && today <= endPromoDate) {
+                          if (
+                            $(`#cartItem${element.id} .sales`).hasClass(
+                              "invisible"
+                            )
+                          ) {
+                            $(`#cartItem${element.id} .sales`).toggleClass(
+                              "invisible"
+                            );
+                            $(`#cartItem${element.id} .percent`).html(
+                              `${promo.discount * 100}%`
+                            );
+                          }
+                          var currentPrice = parseFloat(
+                            $(`#cartItem${element.id} .productPrice`)
+                              .text()
+                              .trim()
+                              .substring(1)
+                          );
+                          $(`#cartItem${element.id} .productPrice`).html(
+                            `<small style="text-decoration: line-through; color:rgba(0,0,0,0.5)">$${currentPrice.toFixed(
+                              2
+                            )}</small>&nbsp;$${(
+                              currentPrice *
+                              (1 - promo.discount)
+                            ).toFixed(2)}`
+                          );
+                          totalPrice -= element.quantity * currentPrice;
+                          totalPrice +=
+                            element.quantity *
+                            currentPrice *
+                            (1 - promo.discount);
+                          totalSaving +=
+                            element.quantity * currentPrice * promo.discount;
+                        }
+                      });
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+                $("#price").html(`$${totalPrice.toFixed(2)}`);
+                $("#saving").html(`$${totalSaving.toFixed(2)}`);
+              });
+            } else {
+              if ($("#cartItems").children().length <= 0) {
+                $("#cartItems").append(`
+                                <div class="d-flex justify-content-center align-items-center w-100 mb-3" style="height: 35vh; border-bottom: 1px solid rgba(0, 0, 0, 0.25)">
+                                  <a href="/store.html" class="text-center d-flex flex-column h2 text-dark text-decoration-none" style="gap:10px">Nothing in cart! Please buy something!
+                                    <button class="btn btn-secondary w-50 mx-auto">Click here to visit store</button>
+                                  </a>
+                                </div>
+                                `);
+              }
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      $(document).ready(async () => {
+        if (!localStorage.getItem("token")) {
+          window.location.href = "/login.html";
+        }
+        var w = window.innerWidth;
+        if (w < 576) {
+          $("#return").html(`<i class="fas fa-chevron-left"></i> SHOP`);
+        } else {
+          $("#return").html(`<i class="fas fa-chevron-left"></i> BACK TO SHOP`);
+        }
+        await getCartItems();
+      });
+      var addTo = (inputQuantity) => {
+        var min = inputQuantity.getAttribute("min") || false;
+        var max = inputQuantity.getAttribute("max") || false;
+        var value = inputQuantity.value;
+        value++;
+        if (!max || value <= max) {
+          inputQuantity.value = value++;
+          updateCart(
+            inputQuantity.id.match(/\d/g).join(""),
+            inputQuantity.value
+          );
+        }
+      };
+      var subFrom = (inputQuantity) => {
+        var min = inputQuantity.getAttribute("min") || false;
+        var max = inputQuantity.getAttribute("max") || false;
+        var value = inputQuantity.value;
+        value--;
+        if (value <= 0) {
+          deleteItem(inputQuantity);
+        } else if (!min || value >= min) {
+          inputQuantity.value = value;
+          updateCart(
+            inputQuantity.id.match(/\d/g).join(""),
+            inputQuantity.value
+          );
+        }
+      };
+      var updateCart = async (id, qty) => {
+        await axios
+          .put(
+            `${baseUrl}/cart/${id}`,
+            {
+              quantity: qty,
+              userid: localStorage.getItem("userid"),
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            }
+          )
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        $(`#cartItem${id} .multiplyQuantity`).html(`&times;${qty}`);
+        getCartItems();
+      };
+      var removeItems = () => {
+        console.log("Hi");
+      };
+      var changeQuantity = (element) => {
+        updateCart(element.id.match(/\d/g).join(""), element.value);
+      };
+      $("#checkOutButton").click(() => {
+        if (
+          localStorage.getItem("address") &&
+          localStorage.getItem("creditNum")
+        ) {
+          $("#address").val(`${localStorage.getItem("address")}`);
+          $("#creditNum").val(`${localStorage.getItem("creditNum")}`);
+        }
+      });
+      $("#checkOut").click(async () => {
+        if (
+          $("#address").val().length <= 0 ||
+          $("#creditNum").val().length <= 0
+        ) {
+          if ($("#err").hasClass("invisible")) {
+            $("#err").toggleClass("invisible");
+          }
+          return;
+        }
+        localStorage.setItem("address", $("#address").val());
+        localStorage.setItem("creditNum", $("#creditNum").val());
+        $("#staticBackdrop").modal("hide");
+        var productArr = [];
+        var priceArr = [];
+        var quantityArr = [];
+        var discountPriceArr = [];
+        var cartIDArr = [];
+        [...$("#cartItems").children()].forEach((element) => {
+          var cartID = element.id.match(/\d/g).join("");
+          cartIDArr.push(parseInt(cartID));
+          productArr.push(parseInt(element.title.match(/\d/g).join("")));
+          quantityArr.push(parseInt($(`#quantityInput${cartID}`).val()));
+          if (
+            $(`#${element.id} .productPrice`).html().trim().split("p;")
+              .length <= 1
+          ) {
+            discountPriceArr.push(
+              parseFloat(
+                $(`#${element.id} .productPrice`)
+                  .html()
+                  .trim()
+                  .split("p;")[0]
+                  .substring(1)
+              )
+            );
+            priceArr.push(
+              parseFloat(
+                $(`#${element.id} .productPrice`)
+                  .html()
+                  .trim()
+                  .split("p;")[0]
+                  .substring(1)
+              )
+            );
+          } else {
+            priceArr.push(
+              parseFloat(
+                $(`#${element.id} .productPrice`)
+                  .html()
+                  .trim()
+                  .split("p;")[0]
+                  .split("$")[1]
+                  .split("<")[0]
+              )
+            );
+            discountPriceArr.push(
+              parseFloat(
+                $(`#${element.id} .productPrice`)
+                  .html()
+                  .trim()
+                  .split("p;")[1]
+                  .substring(1)
+              )
+            );
+          }
+        });
+        for (var i = 0, orderNo = "S"; i < 10; i++) {
+          orderNo += Math.floor(Math.random() * 10);
+        }
+        data = {
+          productArr: productArr,
+          quantityArr: quantityArr,
+          priceArr: priceArr,
+          discountPriceArr: discountPriceArr,
+          orderNo: orderNo,
+        };
+        console.log(data);
+        axios
+          .post(`${baseUrl}/${localStorage.getItem("userid")}/checkout`, data, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        for await (const id of cartIDArr) {
+          axios
+            .delete(`${baseUrl}/cart/${id}`, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+              data: {
+                userid: localStorage.getItem("userid"),
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        $("#cartItems").append(`
+          <div class="modal fade" id="checkedOut" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Order has been placed</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Your Order No. is ${orderNo}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" onclick="reloading()">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          `);
+        $("#checkedOut").modal("show");
+      });
+      var reloading = () => {
+        window.location.reload();
+      };
+      var hide = () => {
+        if (!$("#err").hasClass("invisible")) {
+          $("#err").toggleClass("invisible");
+        }
+      };
+    </script>
+    <script>
+      // Detect if user tamper with log in user id
+      const userid = localStorage.getItem("userid");
+      const token = localStorage.getItem("token");
+      window.addEventListener(
+        "storage",
+        function () {
+          const newUserId = localStorage.getItem("userid");
+          const newToken = localStorage.getItem("token");
+          if (newUserId != userid) {
+            localStorage.setItem("userid", userid);
+            window.location.reload();
+          }
+          if (newToken != token) {
+            localStorage.setItem("token", token);
+            window.location.reload();
+          }
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

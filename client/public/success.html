@@ -1,0 +1,108 @@
+<!--
+Name: Soh Hong Yu
+Class: DAAA/FT/1B/01
+Admin No.: P2100775
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SP IT!</title>
+    <link rel="shortcut icon" href="img/SPIT.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <link href="http://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <div
+      class="d-flex w-100 justify-content-center align-items-center flex-column"
+      style="height: 100vh"
+    >
+      <h2>Reset password successful</h2>
+      <h3>
+        Click <a id="uri" href="http://localhost:3000/login.html">here</a> if
+        you are not redirect in <span id="counter"> 3 </span> seconds.
+      </h3>
+    </div>
+    <script>
+      var uri = document.getElementById("uri");
+      var counter = 3;
+
+      setInterval(function () {
+        counter--;
+
+        if (counter >= 0) {
+          span = document.getElementById("counter");
+          span.innerHTML = counter;
+        }
+
+        // Display 'counter' wherever you want to display it.
+        if (counter === 0) {
+          clearInterval(counter);
+        }
+      }, 1000);
+
+      window.setTimeout(function () {
+        // Move to a new location
+        window.location.href = uri.href;
+      }, 3000);
+    </script>
+    <footer class="container my-4">
+      &copy; 2022 SP IT!. All Rights Reserved.
+    </footer>
+    <!--JS Libraries-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+      integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+      crossorigin="anonymous"
+    ></script>
+    <!--AXIOS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      // Detect if user tamper with log in user id
+      const userid = localStorage.getItem("userid");
+      const token = localStorage.getItem("token");
+      window.addEventListener(
+        "storage",
+        function () {
+          const newUserId = localStorage.getItem("userid");
+          const newToken = localStorage.getItem("token");
+          if (newUserId != userid) {
+            localStorage.setItem("userid", userid);
+            window.location.reload();
+          }
+          if (newToken != token) {
+            localStorage.setItem("token", token);
+            window.location.reload();
+          }
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

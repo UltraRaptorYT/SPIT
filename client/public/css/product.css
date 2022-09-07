@@ -1,0 +1,269 @@
+/*
+Name: Soh Hong Yu
+Class: DAAA/FT/1B/01
+Admin No.: P2100775
+*/
+
+#reviewTextArea {
+  width: 75% !important;
+}
+
+label {
+  font-size: larger;
+}
+
+.card:hover {
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+.star-outline,
+.star-filled {
+  position: absolute;
+  overflow: hidden;
+  word-wrap: normal;
+}
+.productPrice {
+  color: #ee4d2d;
+  font-weight: bold;
+}
+
+.starRating {
+  width: 100px;
+  margin-left: auto;
+}
+
+#starRating {
+  width: 125px;
+}
+
+@media only screen and (max-width: 768px) {
+  #starRating {
+    width: 30%;
+  }
+  #reviewTextArea {
+    width: 100% !important;
+  }
+}
+
+.starRating,
+#starRating {
+  position: relative;
+}
+.star-outline {
+  width: 100%;
+}
+
+.sales {
+  background-color: rgba(255, 212, 36, 0.9);
+  aspect-ratio: 1;
+  width: 42px;
+  top: 0;
+  right: 0;
+}
+
+.sales::after {
+  content: "";
+  width: 0;
+  height: 0;
+  left: 0;
+  bottom: -4px;
+  position: absolute;
+  border-color: transparent rgba(255, 212, 36, 0.9);
+  border-style: solid;
+  border-width: 0 21px 4px;
+}
+
+.percent {
+  color: #ee4d2d;
+  font-weight: 500;
+}
+
+.input-number {
+  width: 80px;
+  padding: 0 12px;
+  vertical-align: top;
+  text-align: center;
+  outline: none;
+}
+
+.input-number,
+.input-number-decrement,
+.input-number-increment {
+  border: 1px solid #ccc;
+  height: 40px;
+  user-select: none;
+}
+
+.input-number-decrement,
+.input-number-increment {
+  display: inline-block;
+  width: 30px;
+  line-height: 38px;
+  background: #f1f1f1;
+  color: #444;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+.input-number-decrement:active,
+.input-number-increment:active {
+  background: #ddd;
+}
+
+.input-number-decrement {
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.input-number-increment {
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+}
+
+.rating1 > label {
+  font-size: 5vh;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.rating1 > label::before {
+  content: "\2605";
+  position: absolute;
+  opacity: 0;
+  color: #ffd700;
+}
+
+.rating1 > label:hover:before,
+.rating1 > label:hover ~ label:before {
+  opacity: 1;
+  color: #ffd700;
+  transition: 0.15s;
+}
+
+.rating1 > input:checked ~ label:before {
+  opacity: 1;
+  transition: 0.15s;
+}
+
+.rating1:hover > input:checked ~ label:before {
+  opacity: 1;
+}
+
+#gotPromo input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+#gotPromo label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 40px;
+  height: 20px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+#gotPromo label:after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+#gotPromo input:checked + label {
+  background: #007bff!important;
+}
+
+#gotPromo input:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+#searchFilter {
+  transition: max-height 500ms ease-in-out;
+}
+
+#toggleDown {
+   transition: transform 300ms ease-in-out;
+}
+
+/* Customize the label (the container) */
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border: 1px #0073aa solid;
+  transition: all 0.5s ease-in-out;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input + .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked + .checkmark {
+  background-color: #0073aa;
+  transition: all 0.5s ease-in-out;
+  border-radius: 50%;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked + .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+h6 {
+  font-size: 1.1rem !important;
+}

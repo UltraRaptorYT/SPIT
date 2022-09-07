@@ -1,0 +1,808 @@
+<!--
+Name: Soh Hong Yu
+Class: DAAA/FT/1B/01
+Admin No.: P2100775
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SP IT!</title>
+    <link rel="shortcut icon" href="img/SPIT.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <link href="http://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-white">
+      <div class="w-100 d-flex justify-content-center align-items-center">
+        <a
+          href="profile.html"
+          class="position-absolute text-dark text-uppercase text-decoration-none"
+          style="left: 5%"
+          id="return"
+          ><i class="fas fa-chevron-left"></i> Back to profile</a
+        >
+        <a
+          class="navbar-brand d-flex align-items-center justify-content-between"
+          style="gap: 10px"
+          href="index.html"
+          ><img src="img/SPIT Dark.png" style="max-height: 60px" />SP IT!</a
+        >
+      </div>
+    </nav>
+    <div class="container mt-3">
+      <div class="d-flex align-items-center justify-content-between my-2">
+        <h3>Promo</h3>
+        <div class="search">
+          <label class="m-0" for="searchPromo">Search</label>
+          <input type="text" name="filter" value="" id="searchPromo" />
+        </div>
+      </div>
+      <div>
+        <table
+          cellpadding="2px"
+          cellspacing="0px"
+          id="promotionTable"
+          class="table-responsive table table-striped table-bordered table-hover"
+        >
+          <thead>
+            <tr>
+              <th class="unsortable" style="width: 10%">Promo Picture</th>
+              <th>Product Name</th>
+              <th>Promo Name</th>
+              <th>Promo Description</th>
+              <th>Promo <br />Start Date</th>
+              <th>Promo <br />End Date</th>
+              <th>Promo Discount</th>
+              <th class="unsortable text-center">
+                <button class="btn btn-secondary" id="addNewPromo">+</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="promoTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="container mt-4">
+      <div class="d-flex align-items-center justify-content-between my-2">
+        <h3>Category</h3>
+        <div class="search">
+          <label class="m-0" for="searchCate">Search</label>
+          <input type="text" name="filter" value="" id="searchCate" />
+        </div>
+      </div>
+      <div>
+        <table
+          cellpadding="2px"
+          cellspacing="0px"
+          id="cateTable"
+          class="table-responsive table table-striped table-bordered table-hover"
+        >
+          <thead>
+            <tr>
+              <th class="sorted-asc">ID</th>
+              <th class="unsortable" style="width: 10%">Category Picture</th>
+              <th>Category Name</th>
+              <th>Category Description</th>
+              <th class="unsortable">List of Product</th>
+              <th class="unsortable text-center">
+                <button class="btn btn-secondary" id="addNewCategory">+</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="categoryTable"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="container mt-4">
+      <div class="d-flex align-items-center justify-content-between my-2">
+        <h3>Products</h3>
+        <div class="search">
+          <label class="m-0" for="filter">Search</label>
+          <input type="text" name="filter" value="" id="filter" />
+        </div>
+      </div>
+      <div>
+        <table
+          cellpadding="2px"
+          cellspacing="0px"
+          id="mainProductTable"
+          class="table-responsive table table-striped table-bordered table-hover"
+        >
+          <thead>
+            <tr>
+              <th class="sorted-asc">ID</th>
+              <th class="unsortable" style="width: 10%">Product Picture</th>
+              <th>Product Name</th>
+              <th>Product Description</th>
+              <th>Category</th>
+              <th>Brand</th>
+              <th>Price</th>
+              <th class="unsortable text-center">
+                <button class="btn btn-secondary" id="addNewProduct">+</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="productTable"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="removeConfirm"
+      tabindex="-1"
+      aria-labelledby="removeConfirmLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="removeConfirmLabel">Are you sure?</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="remove()">
+              Yes
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="container my-4">
+      &copy; 2022 SP IT!. All Rights Reserved.
+    </footer>
+    <!--JS Libraries-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+      integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+      crossorigin="anonymous"
+    ></script>
+    <!--AXIOS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--JQuery-->
+    <script>
+      const baseUrl = "http://localhost:8081";
+      $(document).ready(() => {
+        $("#productTable").empty();
+        $("#categoryTable").empty();
+        $("#promoTable").empty();
+        axios
+          .get(`${baseUrl}/category`)
+          .then(async (response) => {
+            for await (var category of response.data) {
+              console.log(category);
+              await $("#categoryTable").append(`
+                    <tr id="cate${category.categoryid}">
+                      <td>${category.categoryid}</td>
+                      <td><img src="${baseUrl}${category.category_pic_url.substring(
+                1
+              )}" style="width:100%;aspect-ratio:1;object-fit: contain;
+            height: 100%;" /></td>
+                      <td id="categoryName${category.categoryid}">${
+                category.category
+              }</td>
+                      <td>
+                        <div style="width:250px" class="mx-auto"><p class="text-truncate m-0">${
+                          category.description
+                        }</p></div>
+                      </td>
+                    </tr>
+                    `);
+              console.log(`${category.categoryid}`);
+              await axios
+                .get(`${baseUrl}/category/${category.categoryid}`)
+                .then(async (response1) => {
+                  var appendString = "";
+                  if (response1.data.length > 0) {
+                    for await (var product of response1.data) {
+                      console.log(product);
+                      appendString += `
+                      <p onclick="goProduct(${product.id})" style="cursor:pointer" class="m-0 cateProd">${product.name}</p>
+                      `;
+                    }
+                  }
+                  $(`#cate${category.categoryid}`).append(`
+                    <td>
+                      <div class="d-flex justify-content-center flex-column align-items-center">${appendString}</div>
+                    </td>
+                    <td>
+                      <div class="d-flex flex-column align-items-center" style="gap:10px">
+                        <button class="btn btn-secondary" onclick="editCategory(${category.categoryid})">Edit Category</button>
+                        <button class="btn btn-danger" onclick="removeCategory(${category.categoryid})">Remove Category</button>
+                      </div>
+                    </td>
+                  `);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        axios.get(`${baseUrl}/promo`).then(async (response) => {
+          for await (var promo of response.data) {
+            console.log(promo);
+            await axios
+              .get(`${baseUrl}/product/${promo.productid}`)
+              .then(async (response1) => {
+                $("#promoTable").append(`
+            <tr>
+              <td>
+                <img src="${baseUrl}${promo.promo_pic_url.substring(
+                  1
+                )}" style="width:100%;aspect-ratio:1;object-fit: contain;height: 100%;" />
+              </td>
+              <td><p id="promoProduct${promo.id}" onclick="goProduct(${
+                  promo.productid
+                })" 
+                style="cursor:pointer; white-space:nowrap" class="m-0 cateProd">${
+                  response1.data.name
+                }</p></td>
+              <td id="promoName${promo.id}">${promo.promoName}</td>
+              <td>
+                <div style="width:150px" class="mx-auto">
+                  <p class="text-truncate m-0">${promo.promoDescription}</p>
+                </div>
+              </td>
+              <td>${promo.startPromo}</td>
+              <td>${promo.endPromo}</td>
+              <td>${promo.discount * 100}%</td>
+              <td>
+                <div class="d-flex flex-column align-items-center" style="gap:10px">
+                  <button class="btn btn-secondary" onclick="editPromo(${
+                    promo.id
+                  })">Edit Promo</button>
+                  <button class="btn btn-danger" onclick="removePromo(${
+                    promo.id
+                  })">Remove Promo</button>
+                </div>
+              </td>
+            </tr>
+            `);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        });
+        axios
+          .get(`${baseUrl}/products`)
+          .then(async (response) => {
+            for await (var product of response.data) {
+              $("#productTable").append(`
+              <tr>
+                <td>${product.id}</td>
+                <td><img src="${baseUrl}${product.product_pic_url.substring(
+                1
+              )}" style="width:100%;aspect-ratio:1;object-fit: contain;
+            height: 100%;" /></td>
+                <td id="productName${product.id}">${product.name}</td>
+                <td>
+                  <div style="width:250px" class="mx-auto">
+                    <p class="text-truncate m-0">${product.description}</p>
+                  </div>
+                </td>
+                <td>${product.category}</td>
+                <td>${product.brand}</td>
+                <td>$${product.price.toFixed(2)}</td>
+                <td>
+                  <div class="d-flex flex-column align-items-center" style="gap:10px">
+                    <button class="btn btn-secondary" onclick="editProduct(${
+                      product.id
+                    })">Edit Product</button>
+                    <button class="btn btn-primary" onclick="goProduct(${
+                      product.id
+                    })">View Product</button>
+                    <button class="btn btn-danger" onclick="removeProduct(${
+                      product.id
+                    })">Remove Product</button>
+                  </div>
+                </td>
+              </tr>
+              `);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+      $(document).ready(function () {
+        if (!localStorage.getItem("token")) {
+          window.location.href = "/login.html";
+        }
+        $("#filter").keyup(function (event) {
+          if (event.keyCode == 27 || $(this).val() == "") {
+            $(this).val("");
+            $("#mainProductTable tbody tr")
+              .removeClass("visible")
+              .show()
+              .addClass("visible");
+          } else {
+            filter("#mainProductTable tbody tr", $(this).val());
+          }
+        });
+        $("#searchCate").keyup(function (event) {
+          if (event.keyCode == 27 || $(this).val() == "") {
+            $(this).val("");
+            $("#cateTable tbody tr")
+              .removeClass("visible")
+              .show()
+              .addClass("visible");
+          } else {
+            filter("#cateTable tbody tr", $(this).val());
+          }
+        });
+        $("#searchPromo").keyup(function (event) {
+          if (event.keyCode == 27 || $(this).val() == "") {
+            $(this).val("");
+            $("#promotionTable tbody tr")
+              .removeClass("visible")
+              .show()
+              .addClass("visible");
+          } else {
+            filter("#promotionTable tbody tr", $(this).val());
+          }
+        });
+        $("#cateTable thead th").each(function (column) {
+          if (!$(this).hasClass("unsortable")) {
+            $(this)
+              .addClass("sortable")
+              .click(function () {
+                var findSortKey = function ($cell) {
+                  return (
+                    $cell.find(".sort-key").text().toUpperCase() +
+                    " " +
+                    $cell.text().toUpperCase()
+                  );
+                };
+                var sortDirection = $(this).is(".sorted-asc") ? -1 : 1;
+                var $rows = $(this)
+                  .parent()
+                  .parent()
+                  .parent()
+                  .parent()
+                  .find("#cateTable tbody tr")
+                  .get();
+                $.each($rows, function (index, row) {
+                  row.sortKey = findSortKey($(row).children("td").eq(column));
+                });
+                $rows.sort(function (a, b) {
+                  if ($.isNumeric(a.sortKey) && $.isNumeric(b.sortKey)) {
+                    if (parseFloat(a.sortKey) < parseFloat(b.sortKey))
+                      return -sortDirection;
+                    if (parseFloat(a.sortKey) > parseFloat(b.sortKey))
+                      return sortDirection;
+                  } else if (
+                    a.sortKey.includes("$") &&
+                    b.sortKey.includes("$")
+                  ) {
+                    if (
+                      parseFloat(a.sortKey.replace("$", "")) <
+                      parseFloat(b.sortKey.replace("$", ""))
+                    )
+                      return -sortDirection;
+                    if (
+                      parseFloat(a.sortKey.replace("$", "")) >
+                      parseFloat(b.sortKey.replace("$", ""))
+                    )
+                      return sortDirection;
+                  } else {
+                    if (a.sortKey < b.sortKey) return -sortDirection;
+                    if (a.sortKey > b.sortKey) return sortDirection;
+                    return 0;
+                  }
+                });
+                $.each($rows, function (index, row) {
+                  $("#cateTable tbody").append(row);
+                  row.sortKey = null;
+                });
+                $("#cateTable th").removeClass("sorted-asc sorted-desc");
+                var $sortHead = $("#cateTable th").filter(
+                  ":nth-child(" + (column + 1) + ")"
+                );
+                sortDirection == 1
+                  ? $sortHead.addClass("sorted-asc")
+                  : $sortHead.addClass("sorted-desc");
+                $("#cateTable td")
+                  .removeClass("sorted")
+                  .filter(":nth-child(" + (column + 1) + ")")
+                  .addClass("sorted");
+              });
+          }
+        });
+
+        $("#promotionTable thead th").each(function (column) {
+          if (!$(this).hasClass("unsortable")) {
+            $(this)
+              .addClass("sortable")
+              .click(function () {
+                var findSortKey = function ($cell) {
+                  return (
+                    $cell.find(".sort-key").text().toUpperCase() +
+                    " " +
+                    $cell.text().toUpperCase()
+                  );
+                };
+                var sortDirection = $(this).is(".sorted-asc") ? -1 : 1;
+                var $rows = $(this)
+                  .parent()
+                  .parent()
+                  .parent()
+                  .parent()
+                  .find("#promotionTable tbody tr")
+                  .get();
+                $.each($rows, function (index, row) {
+                  row.sortKey = findSortKey($(row).children("td").eq(column));
+                });
+                $rows.sort(function (a, b) {
+                  if ($.isNumeric(a.sortKey) && $.isNumeric(b.sortKey)) {
+                    if (parseFloat(a.sortKey) < parseFloat(b.sortKey))
+                      return -sortDirection;
+                    if (parseFloat(a.sortKey) > parseFloat(b.sortKey))
+                      return sortDirection;
+                  } else if (
+                    a.sortKey.includes("$") &&
+                    b.sortKey.includes("$")
+                  ) {
+                    if (
+                      parseFloat(a.sortKey.replace("$", "")) <
+                      parseFloat(b.sortKey.replace("$", ""))
+                    )
+                      return -sortDirection;
+                    if (
+                      parseFloat(a.sortKey.replace("$", "")) >
+                      parseFloat(b.sortKey.replace("$", ""))
+                    )
+                      return sortDirection;
+                  } else {
+                    if (a.sortKey < b.sortKey) return -sortDirection;
+                    if (a.sortKey > b.sortKey) return sortDirection;
+                    return 0;
+                  }
+                });
+                $.each($rows, function (index, row) {
+                  $("#promotionTable tbody").append(row);
+                  row.sortKey = null;
+                });
+                $("#promotionTable th").removeClass("sorted-asc sorted-desc");
+                var $sortHead = $("#promotionTable th").filter(
+                  ":nth-child(" + (column + 1) + ")"
+                );
+                sortDirection == 1
+                  ? $sortHead.addClass("sorted-asc")
+                  : $sortHead.addClass("sorted-desc");
+                $("#promotionTable td")
+                  .removeClass("sorted")
+                  .filter(":nth-child(" + (column + 1) + ")")
+                  .addClass("sorted");
+              });
+          }
+        });
+
+        $("#mainProductTable thead th").each(function (column) {
+          if (!$(this).hasClass("unsortable")) {
+            $(this)
+              .addClass("sortable")
+              .click(function () {
+                var findSortKey = function ($cell) {
+                  return (
+                    $cell.find(".sort-key").text().toUpperCase() +
+                    " " +
+                    $cell.text().toUpperCase()
+                  );
+                };
+                var sortDirection = $(this).is(".sorted-asc") ? -1 : 1;
+                var $rows = $(this)
+                  .parent()
+                  .parent()
+                  .parent()
+                  .parent()
+                  .find("#mainProductTable tbody tr")
+                  .get();
+                $.each($rows, function (index, row) {
+                  row.sortKey = findSortKey($(row).children("td").eq(column));
+                });
+                $rows.sort(function (a, b) {
+                  if ($.isNumeric(a.sortKey) && $.isNumeric(b.sortKey)) {
+                    if (parseFloat(a.sortKey) < parseFloat(b.sortKey))
+                      return -sortDirection;
+                    if (parseFloat(a.sortKey) > parseFloat(b.sortKey))
+                      return sortDirection;
+                  } else if (
+                    a.sortKey.includes("$") &&
+                    b.sortKey.includes("$")
+                  ) {
+                    if (
+                      parseFloat(a.sortKey.replace("$", "")) <
+                      parseFloat(b.sortKey.replace("$", ""))
+                    )
+                      return -sortDirection;
+                    if (
+                      parseFloat(a.sortKey.replace("$", "")) >
+                      parseFloat(b.sortKey.replace("$", ""))
+                    )
+                      return sortDirection;
+                  } else {
+                    if (a.sortKey < b.sortKey) return -sortDirection;
+                    if (a.sortKey > b.sortKey) return sortDirection;
+                    return 0;
+                  }
+                });
+                $.each($rows, function (index, row) {
+                  $("#mainProductTable tbody").append(row);
+                  row.sortKey = null;
+                });
+                $("#mainProductTable th").removeClass("sorted-asc sorted-desc");
+                var $sortHead = $("#mainProductTable th").filter(
+                  ":nth-child(" + (column + 1) + ")"
+                );
+                sortDirection == 1
+                  ? $sortHead.addClass("sorted-asc")
+                  : $sortHead.addClass("sorted-desc");
+                $("#mainProductTable td")
+                  .removeClass("sorted")
+                  .filter(":nth-child(" + (column + 1) + ")")
+                  .addClass("sorted");
+              });
+          }
+        });
+      });
+
+      function filter(selector, query) {
+        query = $.trim(query);
+        query = query.replace(/ /gi, "|");
+        $(selector).each(function () {
+          $(this).text().search(new RegExp(query, "i")) < 0
+            ? $(this).hide().removeClass("visible")
+            : $(this).show().addClass("visible");
+        });
+      }
+      $("#addNewProduct").click(() => {
+        window.location.href = "/addProduct.html";
+      });
+      $("#addNewCategory").click(() => {
+        window.location.href = "/addCategory.html";
+      });
+      $("#addNewPromo").click(() => {
+        window.location.href = "/addPromo.html";
+      });
+      var goProduct = (productID) => {
+        localStorage.setItem("goingProduct", productID);
+        window.location.href = "/product.html";
+      };
+      var editProduct = (productID) => {
+        localStorage.setItem("editProduct", productID);
+        window.location.href = "/editProduct.html";
+      };
+      var editCategory = (categoryID) => {
+        localStorage.setItem("editCategory", categoryID);
+        window.location.href = "/editCategory.html";
+      };
+      var editPromo = (promoID) => {
+        localStorage.setItem("editPromo", promoID);
+        window.location.href = "/editPromo.html";
+      };
+      $(document).ready(() => {
+        localStorage.removeItem("editCategory");
+        localStorage.removeItem("categoryData");
+        localStorage.removeItem("editPromo");
+        localStorage.removeItem("promoData");
+        localStorage.removeItem("editProduct");
+        localStorage.removeItem("productData");
+        if (localStorage.getItem("userid") == null) {
+          window.location.href = "/";
+        } else {
+          axios
+            .get(`${baseUrl}/users/${localStorage.getItem("userid")}/`)
+            .then((response) => {
+              if (response.data.type != "Admin") {
+                window.location.href = "/";
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      });
+      $(document).ready(() => {
+        var w = window.innerWidth;
+        if (w < 576) {
+          $("#return").html(`<i class="fas fa-chevron-left"></i> PROFILE`);
+        } else {
+          $("#return").html(
+            `<i class="fas fa-chevron-left"></i> BACK TO PROFILE`
+          );
+        }
+      });
+      var removeProduct = (id) => {
+        $("#removeConfirm").modal("show");
+        $("#removeConfirm .modal-body").attr("id", `remove${id}product`);
+        $("#removeConfirm .modal-body").html(
+          `
+          Are you sure you want to remove ${$(`#productName${id}`).html()} ?
+          `
+        );
+      };
+      var removeCategory = (id) => {
+        $("#removeConfirm").modal("show");
+        $("#removeConfirm .modal-body").attr("id", `remove${id}category`);
+        $("#removeConfirm .modal-body").html(
+          `
+          Are you sure you want to remove ${$(`#categoryName${id}`).html()} ?
+          `
+        );
+      };
+      var removePromo = (id) => {
+        $("#removeConfirm").modal("show");
+        $("#removeConfirm .modal-body").attr("id", `remove${id}promo`);
+        $("#removeConfirm .modal-body").html(
+          `
+          Are you sure you want to remove ${$(`#promoName${id}`).html()} - ${$(
+            `#promoProduct${id}`
+          ).html()} ?
+          `
+        );
+      };
+      var remove = () => {
+        var id = $("#removeConfirm .modal-body")
+          .attr("id")
+          .match(/\d/g)
+          .join("");
+        console.log(id);
+        if (
+          $("#removeConfirm .modal-body").attr("id").split(id)[1] == "product"
+        ) {
+          axios
+            .delete(`${baseUrl}/product/${id}/`, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              $("#removeConfirm .modal-body").html(
+                `
+                  Successfully removed ${$(`#productName${id}`).html()}
+                  `
+              );
+              $("#removeConfirm .modal-footer").html(
+                `<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.reload()">
+              OK
+            </button>
+            `
+              );
+              $(`#productName${id}`).parent().remove();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else if (
+          $("#removeConfirm .modal-body").attr("id").split(id)[1] == "category"
+        ) {
+          axios
+            .delete(`${baseUrl}/category/${id}`, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              $("#removeConfirm .modal-body").html(
+                `
+                  Successfully removed ${$(`#categoryName${id}`).html()}
+                  `
+              );
+              $(`#categoryName${id}`).parent().remove();
+              $("#removeConfirm .modal-footer").html(
+                `<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.reload()">
+              OK
+            </button>
+            `
+              );
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          axios
+            .delete(`${baseUrl}/promo/${id}`, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              $("#removeConfirm .modal-body").html(
+                `
+                  Successfully removed ${$(`#promoName${id}`).html()} - ${$(
+                  `#promoProduct${id}`
+                ).html()}
+                  `
+              );
+              $(`#promoName${id}`).parent().remove();
+              $("#removeConfirm .modal-footer").html(
+                `<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.reload()">
+              OK
+            </button>
+            `
+              );
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      };
+      $("#removeConfirm").on("hidden.bs.modal", function (e) {
+        if ($("#removeConfirm .modal-body").html().includes("Successfully")) {
+          window.location.reload();
+        }
+      });
+    </script>
+    <script>
+      // Detect if user tamper with log in user id
+      const userid = localStorage.getItem("userid");
+      const token = localStorage.getItem("token");
+      window.addEventListener(
+        "storage",
+        function () {
+          const newUserId = localStorage.getItem("userid");
+          const newToken = localStorage.getItem("token");
+          if (newUserId != userid) {
+            localStorage.setItem("userid", userid);
+            window.location.reload();
+          }
+          if (newToken != token) {
+            localStorage.setItem("token", token);
+            window.location.reload();
+          }
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
